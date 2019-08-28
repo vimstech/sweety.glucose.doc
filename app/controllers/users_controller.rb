@@ -13,6 +13,7 @@ class UsersController < ApplicationController
       {'label' => "From Date", 'value' => 'from_date'}
     ]
     @readings = @user.get_report params
+    @todays_readings = @user.todays_readings
   end
 
   def create

@@ -2,11 +2,14 @@
   <div class="col col-md-2"></div>
   <div class="col col-md-8">
     <h2><%=@user.name%></h2><!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <button type="button"
+      <%= if(@todays_readings.count == 4) then 'disabled' else '' end %>
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModal">
       New Reading
     </button>
     <hr/>
-    <%=@flash%>
     <form action="/users/<%=@user.id%>" method="GET">
       <div class="row" id="report-selector">
         <div class="col col-md-3">
@@ -44,6 +47,14 @@
           <td><%=@readings[:max]%> mg/dl</td>
           <td><%=@readings[:avg]%> mg/dl</td>
         </tr>
+        <tr><td class="text-center font-weight-bold" colspan="3">Todays Reading</td></tr>
+        <% @todays_readings.each do |reading| %>
+        <tr>
+          <td><%=reading.reading%>mg/dl</td>
+          <td><%=reading.created_at.localtime.strftime("%d-%m-%Y %I:%M %p")%>
+          <td>-</td>
+        </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
